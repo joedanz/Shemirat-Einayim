@@ -77,6 +77,7 @@ const metadata = {
             <a
               href={guide.href}
               class="relative block bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:border-primary-400 dark:hover:border-primary-500 hover:-translate-y-0.5 hover:shadow-lg transition-all no-underline"
+              data-track={`CTA: Troubleshooting ${guide.title}`}
             >
               <div class="text-5xl mb-3">{guide.icon}</div>
               <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">{guide.title}</h3>
@@ -142,11 +143,13 @@ const metadata = {
         <a
           href="/faq"
           class="inline-block px-6 py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+          data-track="CTA: Troubleshooting Browse FAQ"
           >Browse FAQ</a
         >
         <a
           href="/contact"
           class="inline-block px-6 py-3 rounded-lg font-semibold text-blue-600 dark:text-blue-400 bg-white dark:bg-gray-800 border-2 border-blue-600 dark:border-blue-500 hover:bg-blue-50 dark:hover:bg-gray-700 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+          data-track="CTA: Troubleshooting Contact Support"
           >Contact Support</a
         >
       </div>

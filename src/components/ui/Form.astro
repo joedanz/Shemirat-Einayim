@@ -5,7 +5,7 @@ import Button from '~/components/ui/Button.astro';
 const { inputs, textarea, disclaimer, button = 'Contact us', description = '' } = Astro.props;
 ---
 
-<form>
+<form data-contact-form>
   {
     inputs &&
       inputs.map(
@@ -85,3 +85,19 @@ const { inputs, textarea, disclaimer, button = 'Contact us', description = '' } 
     )
   }
 </form>
+
+<script>
+  import { trackFathomEvent } from '~/utils/fathom';
+
+  function setupContactFormTracking() {
+    const form = document.querySelector('form[data-contact-form]');
+    if (!form || form.hasAttribute('data-fathom-bound')) return;
+    form.setAttribute('data-fathom-bound', '');
+    form.addEventListener('submit', () => {
+      trackFathomEvent('Form Submit: Contact');
+    });
+  }
+
+  setupContactFormTracking();
+  document.addEventListener('astro:page-load', setupContactFormTracking);
+</script>

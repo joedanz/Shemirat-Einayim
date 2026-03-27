@@ -12,4 +12,18 @@ import { ANALYTICS } from 'astrowind:config';
   ) : null
 }
 
-<script src="https://cdn.usefathom.com/script.js" data-site="IKGZPMEJ" defer></script>
+<script src="https://cdn.usefathom.com/script.js" data-site="IKGZPMEJ" data-spa="auto" defer></script>
+
+<script is:inline>
+  if (!window._fathomClickBound) {
+    window._fathomClickBound = true;
+    document.addEventListener('click', function (e) {
+      var el = e.target.closest('[data-track]');
+      if (!el) return;
+      var eventName = el.getAttribute('data-track');
+      if (eventName && window.fathom) {
+        try { window.fathom.trackEvent(eventName); } catch (e) {}
+      }
+    });
+  }
+</script>

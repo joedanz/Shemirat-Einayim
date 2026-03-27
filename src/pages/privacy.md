@@ -13,7 +13,7 @@ Shemirat Einayim is a free, public educational resource about internet safety an
 
 ### Analytics Data (Optional)
 
-When analytics are enabled, we may collect basic, anonymous usage data through Plausible Analytics, a privacy-focused analytics service:
+When analytics are enabled, we may collect basic, anonymous usage data through Fathom Analytics, a privacy-focused analytics service:
 
 - **Page views**: Which pages are visited
 - **Referral sources**: Where visitors come from (e.g., search engines, direct links)
@@ -138,15 +138,14 @@ Continued use of the website after changes constitutes acceptance of the updated
 
 ## Third-Party Analytics
 
-If analytics are enabled, we use **Plausible Analytics**, a privacy-friendly analytics service that:
+We use **Fathom Analytics**, a privacy-friendly analytics service that:
 
 - Does not use cookies
 - Does not collect personal data
 - Does not track users across websites
 - Is GDPR, CCPA, and PECR compliant
-- Stores data in the European Union
 
-Learn more: [Plausible Analytics Privacy Policy](https://plausible.io/privacy)
+Learn more: [Fathom Analytics Privacy Policy](https://usefathom.com/legal/privacy)
 
 ## Do Not Track
 
