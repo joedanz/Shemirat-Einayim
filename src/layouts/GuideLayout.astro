@@ -216,3 +216,52 @@ const difficultyClasses = {
     }
   </style>
 </Layout>
+
+<script>
+  import { trackFathomEvent } from '~/utils/fathom';
+
+  let scrollController: AbortController | null = null;
+
+  function setupScrollTracking() {
+    if (scrollController) scrollController.abort();
+
+    // Only track scroll depth on guide pages
+    if (!window.location.pathname.startsWith('/guides/')) return;
+
+    scrollController = new AbortController();
+
+    const slug = window.location.pathname.split('/').pop() || 'unknown';
+    const milestones: Record<number, boolean> = { 50: false, 90: false };
+    let ticking = false;
+
+    function checkScroll() {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+
+      const scrollPct = Math.round((window.scrollY / scrollable) * 100);
+
+      if (scrollPct >= 50 && !milestones[50]) {
+        milestones[50] = true;
+        trackFathomEvent(`Scroll 50%: ${slug}`);
+      }
+      if (scrollPct >= 90 && !milestones[90]) {
+        milestones[90] = true;
+        trackFathomEvent(`Scroll 90%: ${slug}`);
+      }
+      ticking = false;
+    }
+
+    document.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(checkScroll);
+          ticking = true;
+        }
+      },
+      { passive: true, signal: scrollController.signal }
+    );
+  }
+
+  document.addEventListener('astro:page-load', setupScrollTracking);
+</script>

@@ -4,9 +4,7 @@ interface Props {
   variant?: 'primary' | 'secondary' | 'outline';
   size?: 'small' | 'medium' | 'large';
   class?: string;
-  trackEvent?: string;
-  trackLocation?: string;
-  trackType?: string;
+  'data-track'?: string;
 }
 
 const {
@@ -14,9 +12,7 @@ const {
   variant = 'primary',
   size = 'medium',
   class: className = '',
-  trackEvent,
-  trackLocation,
-  trackType,
+  'data-track': dataTrack,
 } = Astro.props;
 
 const Tag = href ? 'a' : 'button';
@@ -48,26 +44,7 @@ const sizeClasses = {
     sizeClasses[size],
     className,
   ]}
-  data-track-event={trackEvent}
-  data-track-location={trackLocation}
-  data-track-type={trackType}
+  data-track={dataTrack}
 >
   <slot />
 </Tag>
-
-<script>
-  import { trackCTAClick } from '../utils/analytics';
-
-  document.querySelectorAll('[data-track-event]').forEach((button) => {
-    button.addEventListener('click', function () {
-      const eventName = this.getAttribute('data-track-event');
-      const location = this.getAttribute('data-track-location');
-      const type = this.getAttribute('data-track-type');
-      const text = this.textContent?.trim() || '';
-
-      if (eventName) {
-        trackCTAClick(text, location || 'unknown', type || undefined);
-      }
-    });
-  });
-</script>

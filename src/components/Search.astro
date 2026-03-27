@@ -7,7 +7,7 @@ const { class: className = '' } = Astro.props;
 ---
 
 <div class:list={['search-container', className]}>
-  <button id="search-button" class="search-button" aria-label="Open search" aria-expanded="false">
+  <button id="search-button" class="search-button" aria-label="Open search" aria-expanded="false" data-track="Search Used">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="20"
@@ -235,62 +235,56 @@ const { class: className = '' } = Astro.props;
 </style>
 
 <script>
-  // Wait for DOM to be ready
-  document.addEventListener('DOMContentLoaded', function () {
-    const searchButton = document.getElementById('search-button');
-    const searchModal = document.getElementById('search-modal') as HTMLDialogElement | null;
-    const searchClose = document.getElementById('search-close');
+  // Cache the pagefind module across View Transitions, but rebuild DOM each time
+  let pagefindModule: any = null;
+  let searchController: AbortController | null = null;
 
-    let pagefindLoaded = false;
+  async function loadPagefind() {
+    const container = document.getElementById('pagefind-search');
+    if (!container) return;
 
-    async function loadPagefind() {
-      if (pagefindLoaded) return;
+    // If DOM already has search input (same page, no swap), skip rebuild
+    if (container.querySelector('.pagefind-ui__search-input')) return;
 
-      try {
-        // Check if pagefind exists (only in production builds)
+    try {
+      if (!pagefindModule) {
         const response = await fetch('/pagefind/pagefind.js', { method: 'HEAD' });
         if (!response.ok) {
           throw new Error('Pagefind not available');
         }
 
-        // Dynamically import Pagefind at runtime (only available after build)
-        // Use string concatenation to prevent Vite from analyzing this import
         const pagefindPath = '/pagefind' + '/pagefind.js';
-        const pagefind = await import(pagefindPath);
-        await pagefind.options({
+        pagefindModule = await import(pagefindPath);
+        await pagefindModule.options({
           excerptLength: 15,
         });
+      }
 
-        // Create UI manually since @pagefind/default-ui requires CSS
-        const container = document.getElementById('pagefind-search');
-        if (!container) return;
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.placeholder = 'Search...';
+      input.className =
+        'pagefind-ui__search-input w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500';
 
-        // Create search input
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.placeholder = 'Search...';
-        input.className =
-          'pagefind-ui__search-input w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500';
+      const resultsDiv = document.createElement('div');
+      resultsDiv.className = 'pagefind-ui__results mt-4 space-y-2';
 
-        const resultsDiv = document.createElement('div');
-        resultsDiv.className = 'pagefind-ui__results mt-4 space-y-2';
+      container.appendChild(input);
+      container.appendChild(resultsDiv);
 
-        container.appendChild(input);
-        container.appendChild(resultsDiv);
+      let debounceTimer: number;
+      input.addEventListener('input', async (e) => {
+        clearTimeout(debounceTimer);
+        const query = (e.target as HTMLInputElement).value;
 
-        // Handle search
-        let debounceTimer: number;
-        input.addEventListener('input', async (e) => {
-          clearTimeout(debounceTimer);
-          const query = (e.target as HTMLInputElement).value;
+        if (!query) {
+          resultsDiv.innerHTML = '';
+          return;
+        }
 
-          if (!query) {
-            resultsDiv.innerHTML = '';
-            return;
-          }
-
-          debounceTimer = window.setTimeout(async () => {
-            const search = await pagefind.search(query);
+        debounceTimer = window.setTimeout(async () => {
+          try {
+            const search = await pagefindModule.search(query);
             resultsDiv.innerHTML = '';
 
             if (search.results.length === 0) {
@@ -318,64 +312,86 @@ const { class: className = '' } = Astro.props;
               resultEl.appendChild(excerpt);
               resultsDiv.appendChild(resultEl);
             }
-          }, 300);
-        });
-
-        pagefindLoaded = true;
-      } catch (error) {
-        console.error('Failed to load Pagefind:', error);
-        const container = document.getElementById('pagefind-search');
-        if (container) {
-          container.innerHTML =
-            '<p class="text-gray-500 dark:text-gray-400 py-4">Search is only available in production builds. Run <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">npm run build && npm run preview</code> to test.</p>';
-        }
+          } catch (err) {
+            console.error('Search failed:', err);
+            resultsDiv.innerHTML =
+              '<p class="text-red-500 dark:text-red-400 py-4">Search encountered an error. Please try again.</p>';
+          }
+        }, 300);
+      });
+    } catch (error) {
+      console.error('Failed to load Pagefind:', error);
+      if (container) {
+        container.innerHTML =
+          '<p class="text-gray-500 dark:text-gray-400 py-4">Search is only available in production builds. Run <code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">npm run build && npm run preview</code> to test.</p>';
       }
     }
+  }
 
-    searchButton?.addEventListener('click', async () => {
+  function setupSearch() {
+    if (searchController) searchController.abort();
+    searchController = new AbortController();
+    const signal = searchController.signal;
+
+    const searchButton = document.getElementById('search-button');
+    const searchModal = document.getElementById('search-modal') as HTMLDialogElement | null;
+    const searchClose = document.getElementById('search-close');
+
+    async function openSearch() {
       searchModal?.showModal();
       searchButton?.setAttribute('aria-expanded', 'true');
       await loadPagefind();
-      // Focus the search input
       setTimeout(() => {
         const input = document.querySelector('.pagefind-ui__search-input') as HTMLInputElement;
         input?.focus();
       }, 100);
-    });
+    }
 
-    searchClose?.addEventListener('click', () => {
-      searchModal?.close();
-      searchButton?.setAttribute('aria-expanded', 'false');
-    });
+    searchButton?.addEventListener('click', openSearch, { signal });
 
-    // Close on escape key
-    searchModal?.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
+    searchClose?.addEventListener(
+      'click',
+      () => {
         searchModal?.close();
         searchButton?.setAttribute('aria-expanded', 'false');
-      }
-    });
+      },
+      { signal }
+    );
 
-    // Close when clicking backdrop
-    searchModal?.addEventListener('click', (e) => {
-      if (e.target === searchModal) {
-        searchModal?.close();
-        searchButton?.setAttribute('aria-expanded', 'false');
-      }
-    });
+    searchModal?.addEventListener(
+      'keydown',
+      (e) => {
+        if (e.key === 'Escape') {
+          searchModal?.close();
+          searchButton?.setAttribute('aria-expanded', 'false');
+        }
+      },
+      { signal }
+    );
 
-    // Keyboard shortcut: Cmd/Ctrl + K
-    document.addEventListener('keydown', async (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        searchModal?.showModal();
-        searchButton?.setAttribute('aria-expanded', 'true');
-        await loadPagefind();
-        setTimeout(() => {
-          const input = document.querySelector('.pagefind-ui__search-input') as HTMLInputElement;
-          input?.focus();
-        }, 100);
-      }
-    });
-  });
+    searchModal?.addEventListener(
+      'click',
+      (e) => {
+        if (e.target === searchModal) {
+          searchModal?.close();
+          searchButton?.setAttribute('aria-expanded', 'false');
+        }
+      },
+      { signal }
+    );
+
+    document.addEventListener(
+      'keydown',
+      async (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          await openSearch();
+        }
+      },
+      { signal }
+    );
+  }
+
+  setupSearch();
+  document.addEventListener('astro:page-load', setupSearch);
 </script>
