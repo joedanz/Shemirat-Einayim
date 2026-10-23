@@ -7,13 +7,7 @@ interface Props {
   'data-track'?: string;
 }
 
-const {
-  href,
-  variant = 'primary',
-  size = 'medium',
-  class: className = '',
-  'data-track': dataTrack,
-} = Astro.props;
+const { href, variant = 'primary', size = 'medium', class: className = '', 'data-track': dataTrack } = Astro.props;
 
 const Tag = href ? 'a' : 'button';
 
