@@ -23,7 +23,7 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 
 export default defineConfig({
   output: 'static',
-  site: 'https://shemiratenayim.org',
+  site: 'https://shemirateinayim.org',
 
   integrations: [
     sitemap(),
