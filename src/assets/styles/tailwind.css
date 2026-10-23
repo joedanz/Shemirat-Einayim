@@ -37,7 +37,6 @@
   --font-sans:
     var(--aw-font-sans, ui-sans-serif), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
-  --font-serif: var(--aw-font-serif, ui-serif), ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
   --font-heading:
     var(--aw-font-heading, ui-sans-serif), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
@@ -83,13 +82,13 @@
 ::backdrop,
 ::file-selector-button {
   /* v3 default border color was gray-200 (v4: currentcolor). */
-  border-color: #e5e7eb;
+  border-color: --theme(--color-gray-200);
 }
 
 input::placeholder,
 textarea::placeholder {
   /* v3 placeholder color was gray-400 (v4: current color at 50%). */
-  color: #9ca3af;
+  color: --theme(--color-gray-400);
 }
 
 button,
@@ -150,39 +149,17 @@ option {
   Tailwind 3's space-y-* gave every child after the first `margin-top` (and `margin-bottom: 0`)
   through a (0,3,0) selector, which also overrode the typography plugin's list-item margins on
   the guide pages. v4's version is zero-specificity and puts the margin on the bottom instead,
-  so those lists would space out differently. Restore the v3 rule for the values in use.
-  (space-x and divide-y are left on v4 semantics: they render the same here.)
+  so those lists would space out differently. Restore the v3 rule (variants such as
+  `prose-ul:space-y-2` come along). space-x and divide-y keep v4 semantics: they render the same here.
 */
-.space-y-1 > :not([hidden]) ~ :not([hidden]) {
-  margin-top: 0.25rem;
-  margin-bottom: 0;
-}
-.space-y-2 > :not([hidden]) ~ :not([hidden]),
-.prose-ul\:space-y-2
-  :where(ul):not(:where([class~='not-prose'], [class~='not-prose'] *))
-  > :not([hidden])
-  ~ :not([hidden]) {
-  margin-top: 0.5rem;
-  margin-bottom: 0;
-}
-.space-y-3 > :not([hidden]) ~ :not([hidden]) {
-  margin-top: 0.75rem;
-  margin-bottom: 0;
-}
-.space-y-4 > :not([hidden]) ~ :not([hidden]) {
-  margin-top: 1rem;
-  margin-bottom: 0;
-}
-.space-y-6 > :not([hidden]) ~ :not([hidden]) {
-  margin-top: 1.5rem;
-  margin-bottom: 0;
-}
-.space-y-10 > :not([hidden]) ~ :not([hidden]) {
-  margin-top: 2.5rem;
-  margin-bottom: 0;
+@utility space-y-* {
+  & > :not([hidden]) ~ :not([hidden]) {
+    margin-top: --spacing(--value(number));
+    margin-bottom: 0;
+  }
 }
 /* v4 still gives the first child a bottom margin (zero specificity); v3 left it alone. */
-:where(.space-y-1, .space-y-2, .space-y-3, .space-y-4, .space-y-6, .space-y-10) > :where(:not(:last-child)) {
+:where([class*='space-y-'] > :not(:last-child)) {
   margin-bottom: 0;
 }
 
@@ -197,8 +174,8 @@ option {
   margin-bottom: 0;
 }
 @utility my-* {
-  margin-top: --spacing(--value(integer));
-  margin-bottom: --spacing(--value(integer));
+  margin-top: --spacing(--value(number));
+  margin-bottom: --spacing(--value(number));
 }
 
 @utility bg-page {
@@ -207,14 +184,8 @@ option {
 @utility bg-dark {
   background-color: var(--aw-color-bg-page-dark);
 }
-@utility bg-light {
-  background-color: var(--aw-color-bg-page);
-}
 @utility text-page {
   color: var(--aw-color-text-page);
-}
-@utility text-muted {
-  color: var(--aw-color-text-muted);
 }
 
 #header.scroll > div:first-child {
