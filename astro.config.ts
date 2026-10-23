@@ -2,9 +2,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import { defineConfig } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 
 import sitemap from '@astrojs/sitemap';
-import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
 import partytown from '@astrojs/partytown';
 import icon from 'astro-icon';
@@ -26,9 +26,6 @@ export default defineConfig({
   site: 'https://shemiratenayim.org',
 
   integrations: [
-    tailwind({
-      applyBaseStyles: false,
-    }),
     sitemap(),
     mdx(),
     icon({
@@ -76,9 +73,14 @@ export default defineConfig({
     domains: ['cdn.pixabay.com'],
   },
 
+  // Astro 7 defaults to 'jsx'-style whitespace handling; keep the Astro 5 output.
+  compressHTML: true,
+
   markdown: {
-    remarkPlugins: [readingTimeRemarkPlugin],
-    rehypePlugins: [responsiveTablesRehypePlugin, lazyImagesRehypePlugin],
+    processor: unified({
+      remarkPlugins: [readingTimeRemarkPlugin],
+      rehypePlugins: [responsiveTablesRehypePlugin, lazyImagesRehypePlugin],
+    }),
   },
 
   build: {
@@ -93,14 +95,8 @@ export default defineConfig({
     },
     build: {
       cssMinify: true,
-      minify: 'esbuild',
       rollupOptions: {
         external: ['/pagefind/pagefind.js'],
-        output: {
-          manualChunks: {
-            search: ['fuse.js'],
-          },
-        },
       },
     },
   },
