@@ -1,6 +1,6 @@
 site:
   name: Shemirat Einayim
-  site: 'https://shemiratenayim.org'
+  site: 'https://shemirateinayim.org'
   base: '/'
   trailingSlash: false
 
