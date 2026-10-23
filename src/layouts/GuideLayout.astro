@@ -218,7 +218,7 @@ const difficultyClasses = {
 </Layout>
 
 <script>
-  import { trackFathomEvent } from '~/utils/fathom';
+  import { trackEvent } from '~/utils/analytics';
 
   let scrollController: AbortController | null = null;
 
@@ -242,11 +242,11 @@ const difficultyClasses = {
 
       if (scrollPct >= 50 && !milestones[50]) {
         milestones[50] = true;
-        trackFathomEvent(`Scroll 50%: ${slug}`);
+        trackEvent(`Scroll 50%: ${slug}`);
       }
       if (scrollPct >= 90 && !milestones[90]) {
         milestones[90] = true;
-        trackFathomEvent(`Scroll 90%: ${slug}`);
+        trackEvent(`Scroll 90%: ${slug}`);
       }
       ticking = false;
     }

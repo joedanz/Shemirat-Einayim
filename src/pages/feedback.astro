@@ -263,7 +263,7 @@ import Alert from '../components/Alert.astro';
   }
 
   // Form submission
-  import { trackFathomEvent } from '../utils/fathom';
+  import { trackEvent } from '../utils/analytics';
 
   const form = document.getElementById('feedbackForm') as HTMLFormElement;
   const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
@@ -288,7 +288,7 @@ import Alert from '../components/Alert.astro';
 
         const feedbackType = data.feedbackType as string;
         const rating = data.rating ? parseInt(data.rating as string) * 100 : undefined;
-        trackFathomEvent(`Form Submit: Feedback ${feedbackType.charAt(0).toUpperCase() + feedbackType.slice(1)}`, rating);
+        trackEvent(`Form Submit: Feedback ${feedbackType.charAt(0).toUpperCase() + feedbackType.slice(1)}`, rating);
 
         // Show success message
         formMessage.style.display = 'block';

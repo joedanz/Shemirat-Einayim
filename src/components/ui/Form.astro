@@ -87,14 +87,14 @@ const { inputs, textarea, disclaimer, button = 'Contact us', description = '' } 
 </form>
 
 <script>
-  import { trackFathomEvent } from '~/utils/fathom';
+  import { trackEvent } from '~/utils/analytics';
 
   function setupContactFormTracking() {
     const form = document.querySelector('form[data-contact-form]');
-    if (!form || form.hasAttribute('data-fathom-bound')) return;
-    form.setAttribute('data-fathom-bound', '');
+    if (!form || form.hasAttribute('data-tracking-bound')) return;
+    form.setAttribute('data-tracking-bound', '');
     form.addEventListener('submit', () => {
-      trackFathomEvent('Form Submit: Contact');
+      trackEvent('Form Submit: Contact');
     });
   }
 
