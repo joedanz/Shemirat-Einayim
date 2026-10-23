@@ -68,14 +68,14 @@ The site will be available at `http://localhost:4321`
 
 ### Commands
 
-| Command             | Action                                        |
-|:--------------------|:----------------------------------------------|
-| `npm install`       | Install dependencies                          |
-| `npm run dev`       | Start dev server at `localhost:4321`          |
-| `npm run build`     | Build production site to `./dist/`            |
-| `npm run preview`   | Preview production build locally              |
-| `npm run check`     | Run Astro check, ESLint, and Prettier         |
-| `npm run fix`       | Auto-fix ESLint and Prettier issues           |
+| Command           | Action                                |
+| :---------------- | :------------------------------------ |
+| `npm install`     | Install dependencies                  |
+| `npm run dev`     | Start dev server at `localhost:4321`  |
+| `npm run build`   | Build production site to `./dist/`    |
+| `npm run preview` | Preview production build locally      |
+| `npm run check`   | Run Astro check, ESLint, and Prettier |
+| `npm run fix`     | Auto-fix ESLint and Prettier issues   |
 
 ## Technology Stack
 
