@@ -13,7 +13,7 @@ Shemirat Einayim is a free, public educational resource about internet safety an
 
 ### Analytics Data (Optional)
 
-When analytics are enabled, we may collect basic, anonymous usage data through Fathom Analytics, a privacy-focused analytics service:
+When analytics are enabled, we may collect basic, anonymous usage data through Umami, a privacy-focused analytics service that we host ourselves:
 
 - **Page views**: Which pages are visited
 - **Referral sources**: Where visitors come from (e.g., search engines, direct links)
@@ -136,16 +136,16 @@ We may update this Privacy Policy from time to time. Changes will be posted on t
 
 Continued use of the website after changes constitutes acceptance of the updated policy.
 
-## Third-Party Analytics
+## Analytics
 
-We use **Fathom Analytics**, a privacy-friendly analytics service that:
+We use **Umami**, a privacy-friendly, open-source analytics service that we self-host. It:
 
 - Does not use cookies
 - Does not collect personal data
 - Does not track users across websites
-- Is GDPR, CCPA, and PECR compliant
+- Does not share analytics data with third parties
 
-Learn more: [Fathom Analytics Privacy Policy](https://usefathom.com/legal/privacy)
+Learn more: [Umami](https://umami.is/docs)
 
 ## Do Not Track
 
