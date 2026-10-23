@@ -3,6 +3,7 @@ import { fileURLToPath } from 'url';
 
 import { defineConfig } from 'astro/config';
 import { unified } from '@astrojs/markdown-remark';
+import tailwindcss from '@tailwindcss/vite';
 
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
@@ -88,6 +89,7 @@ export default defineConfig({
   },
 
   vite: {
+    plugins: [tailwindcss()],
     resolve: {
       alias: {
         '~': path.resolve(__dirname, './src'),

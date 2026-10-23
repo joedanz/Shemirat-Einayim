@@ -75,7 +75,7 @@ import Accordion from '../../components/Accordion.astro';
           <li>Verify the correct filtering DNS addresses are entered</li>
         </ol>
 
-        <div class="bg-blue-50 dark:bg-blue-950 border-l-4 border-blue-500 p-4 my-4 rounded">
+        <div class="bg-blue-50 dark:bg-blue-950 border-l-4 border-blue-500 p-4 my-4 rounded-sm">
           <strong class="block text-blue-900 dark:text-blue-100 mb-2">Common Filtering DNS Servers:</strong>
           <ul class="ml-4 list-disc text-gray-700 dark:text-gray-300 space-y-1">
             <li><strong>OpenDNS FamilyShield:</strong> 208.67.222.123 / 208.67.220.123</li>
@@ -126,14 +126,14 @@ import Accordion from '../../components/Accordion.astro';
 
         <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mt-6 mb-3">Windows:</h4>
         <pre
-          class="bg-gray-900 dark:bg-gray-950 text-green-300 p-4 rounded overflow-x-auto my-4"><code>ipconfig /flushdns</code></pre>
+          class="bg-gray-900 dark:bg-gray-950 text-green-300 p-4 rounded-sm overflow-x-auto my-4"><code>ipconfig /flushdns</code></pre>
         <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
           Open Command Prompt as Administrator, run the command, and restart your computer.
         </p>
 
         <h4 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mt-6 mb-3">Mac:</h4>
         <pre
-          class="bg-gray-900 dark:bg-gray-950 text-green-300 p-4 rounded overflow-x-auto my-4"><code>sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder</code></pre>
+          class="bg-gray-900 dark:bg-gray-950 text-green-300 p-4 rounded-sm overflow-x-auto my-4"><code>sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder</code></pre>
         <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
           Open Terminal, run the command, enter your password, and restart your Mac.
         </p>
@@ -227,7 +227,7 @@ import Accordion from '../../components/Accordion.astro';
 
         <strong class="block text-gray-800 dark:text-gray-200 mt-4 mb-2">Windows/Mac Terminal:</strong>
         <pre
-          class="bg-gray-900 dark:bg-gray-950 text-green-300 p-4 rounded overflow-x-auto my-4"><code>nslookup example.com</code></pre>
+          class="bg-gray-900 dark:bg-gray-950 text-green-300 p-4 rounded-sm overflow-x-auto my-4"><code>nslookup example.com</code></pre>
         <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
           Look at the "Address" line at the top. It should show your filtering DNS server (e.g., 208.67.222.123 for
           OpenDNS), NOT your ISP's DNS (e.g., not 8.8.8.8).
@@ -246,7 +246,7 @@ import Accordion from '../../components/Accordion.astro';
           <li>Try visiting a site that should be blocked (e.g., adult content test page)</li>
           <li>
             OpenDNS users can test with: <code
-              class="bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded text-sm font-mono">internetbadguys.com</code
+              class="bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-sm text-sm font-mono">internetbadguys.com</code
             >
           </li>
           <li>Should see a block page, not the actual site</li>

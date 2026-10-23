@@ -80,7 +80,7 @@ const difficultyClasses = {
       <!-- Prerequisites -->
       {
         prerequisites.length > 0 && (
-          <div class="bg-blue-50 dark:bg-blue-900/50 border-l-4 border-blue-400 dark:border-blue-500 p-4 rounded">
+          <div class="bg-blue-50 dark:bg-blue-900/50 border-l-4 border-blue-400 dark:border-blue-500 p-4 rounded-sm">
             <p class="font-semibold text-blue-800 dark:text-blue-100 mb-2">Prerequisites:</p>
             <ul class="space-y-1 text-blue-700 dark:text-blue-200">
               {prerequisites.map((prereq) => (
@@ -102,17 +102,17 @@ const difficultyClasses = {
       prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:pt-4 prose-h2:border-t prose-h2:border-gray-200 dark:prose-h2:border-gray-700
       prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-3 prose-h3:text-blue-600 dark:prose-h3:text-blue-400
       prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed
-      prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
+      prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline prose-a:hover:underline
       prose-strong:text-gray-900 dark:prose-strong:text-white
       prose-ul:space-y-2
       prose-li:text-gray-700 dark:prose-li:text-gray-300
       prose-img:rounded-lg prose-img:shadow-lg prose-img:border prose-img:border-gray-200 dark:prose-img:border-gray-700
-      prose-code:text-sm prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-gray-800 dark:prose-code:text-gray-200 prose-code:before:content-none prose-code:after:content-none
+      prose-code:text-sm prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-sm prose-code:text-gray-800 dark:prose-code:text-gray-200 prose-code:before:content-none prose-code:after:content-none
       prose-pre:bg-gray-900 dark:prose-pre:bg-gray-950 prose-pre:text-gray-100
       prose-table:w-full prose-table:border-collapse
       prose-th:bg-blue-600 prose-th:text-white prose-th:p-3 prose-th:text-left prose-th:text-sm prose-th:font-semibold prose-th:uppercase prose-th:tracking-wider
       prose-td:p-3 prose-td:border-b prose-td:border-gray-200 dark:prose-td:border-gray-700
-      prose-tr:hover:bg-gray-50 dark:prose-tr:hover:bg-gray-800/50"
+      hover:prose-tr:bg-gray-50 dark:hover:prose-tr:bg-gray-800/50"
     >
       <slot />
     </div>

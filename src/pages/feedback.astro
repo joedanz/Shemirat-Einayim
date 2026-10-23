@@ -37,7 +37,7 @@ import Alert from '../components/Alert.astro';
             <select
               id="feedbackType"
               name="feedbackType"
-              class="p-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-base font-sans transition-all focus:outline-none focus:border-primary-500 focus:ring-4 focus:ring-primary-100 dark:bg-gray-700 dark:text-white"
+              class="p-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-base font-sans transition-all focus:outline-hidden focus:border-primary-500 focus:ring-4 focus:ring-primary-100 dark:bg-gray-700 dark:text-white"
               required
             >
               <option value="">Select type...</option>
@@ -58,7 +58,7 @@ import Alert from '../components/Alert.astro';
               type="url"
               id="pageUrl"
               name="pageUrl"
-              class="p-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-base font-sans transition-all focus:outline-none focus:border-primary-500 focus:ring-4 focus:ring-primary-100 dark:bg-gray-700 dark:text-white"
+              class="p-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-base font-sans transition-all focus:outline-hidden focus:border-primary-500 focus:ring-4 focus:ring-primary-100 dark:bg-gray-700 dark:text-white"
               placeholder="https://shemirateinayim.org/..."
             />
             <p class="text-sm text-gray-500 dark:text-gray-400 m-0">Which page is this feedback about?</p>
@@ -73,7 +73,7 @@ import Alert from '../components/Alert.astro';
             <textarea
               id="description"
               name="description"
-              class="p-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-base font-sans transition-all resize-y min-h-[150px] leading-relaxed focus:outline-none focus:border-primary-500 focus:ring-4 focus:ring-primary-100 dark:bg-gray-700 dark:text-white"
+              class="p-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-base font-sans transition-all resize-y min-h-[150px] leading-relaxed focus:outline-hidden focus:border-primary-500 focus:ring-4 focus:ring-primary-100 dark:bg-gray-700 dark:text-white"
               rows="8"
               required
               placeholder="Please describe your feedback in detail..."></textarea>
@@ -91,7 +91,7 @@ import Alert from '../components/Alert.astro';
               type="email"
               id="email"
               name="email"
-              class="p-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-base font-sans transition-all focus:outline-none focus:border-primary-500 focus:ring-4 focus:ring-primary-100 dark:bg-gray-700 dark:text-white"
+              class="p-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-base font-sans transition-all focus:outline-hidden focus:border-primary-500 focus:ring-4 focus:ring-primary-100 dark:bg-gray-700 dark:text-white"
               placeholder="your@email.com"
             />
             <p class="text-sm text-gray-500 dark:text-gray-400 m-0">Provide if you'd like a response</p>
@@ -163,7 +163,7 @@ import Alert from '../components/Alert.astro';
       </div>
 
       <aside class="flex flex-col gap-6">
-        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm">
+        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-xs">
           <h2 class="text-xl font-bold text-gray-900 dark:text-white m-0 mb-4">💡 Tips for Good Feedback</h2>
           <ul class="m-0 pl-6">
             <li class="mb-2 text-gray-700 dark:text-gray-300 leading-relaxed">
@@ -181,7 +181,7 @@ import Alert from '../components/Alert.astro';
           </ul>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm">
+        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-xs">
           <h2 class="text-xl font-bold text-gray-900 dark:text-white m-0 mb-4">📬 What Happens Next?</h2>
           <ol class="m-0 pl-6">
             <li class="mb-2 text-gray-700 dark:text-gray-300 leading-relaxed">
@@ -197,7 +197,7 @@ import Alert from '../components/Alert.astro';
           </ol>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm">
+        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-xs">
           <h2 class="text-xl font-bold text-gray-900 dark:text-white m-0 mb-4">🚨 Urgent Issues?</h2>
           <p class="m-0 mb-3 text-gray-700 dark:text-gray-300 leading-relaxed">
             For technical problems preventing you from using filtering, see our
@@ -217,7 +217,7 @@ import Alert from '../components/Alert.astro';
           </p>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm">
+        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-xs">
           <h2 class="text-xl font-bold text-gray-900 dark:text-white m-0 mb-4">📊 Recent Improvements</h2>
           <p class="m-0 mb-3 text-gray-700 dark:text-gray-300 leading-relaxed">Thanks to user feedback, we recently:</p>
           <ul class="m-0 pl-6">

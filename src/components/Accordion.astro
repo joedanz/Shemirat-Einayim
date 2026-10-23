@@ -10,7 +10,7 @@ const { title, defaultOpen = false, class: className = '' } = Astro.props;
 
 <details
   class:list={[
-    'group border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-sm transition-all',
+    'group border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-xs transition-all',
     className,
   ]}
   open={defaultOpen}
@@ -37,11 +37,11 @@ const { title, defaultOpen = false, class: className = '' } = Astro.props;
   <div class="overflow-hidden">
     <div
       class="px-4 pb-4 text-gray-700 dark:text-gray-300 leading-relaxed prose prose-sm dark:prose-invert max-w-none
-		             prose-p:last:mb-0
+		             last:prose-p:mb-0
 		             prose-ul:ml-5 prose-ul:mb-3 prose-ol:ml-5 prose-ol:mb-3
 		             prose-li:mb-2
-		             prose-a:text-primary-600 dark:prose-a:text-primary-400 prose-a:underline hover:prose-a:text-primary-700 dark:hover:prose-a:text-primary-300 prose-a:transition-colors
-		             prose-code:bg-gray-100 dark:prose-code:bg-gray-700 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-mono"
+		             prose-a:text-primary-600 dark:prose-a:text-primary-400 prose-a:underline prose-a:hover:text-primary-700 dark:prose-a:hover:text-primary-300 prose-a:transition-colors
+		             prose-code:bg-gray-100 dark:prose-code:bg-gray-700 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-sm prose-code:text-sm prose-code:font-mono"
     >
       <slot />
     </div>
