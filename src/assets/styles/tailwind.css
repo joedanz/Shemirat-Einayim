@@ -47,6 +47,22 @@
   --default-ring-color: rgb(59 130 246 / 0.5);
 
   --animate-fade: fadeInUp 1s both;
+
+  /*
+    Tailwind 3 font-size line-heights were absolute rems, so a child with an arbitrary size
+    (e.g. `text-xl md:text-[0.9375rem]`) inherited 28px. v4's are unitless ratios.
+  */
+  --text-xs--line-height: 1rem;
+  --text-sm--line-height: 1.25rem;
+  --text-base--line-height: 1.5rem;
+  --text-lg--line-height: 1.75rem;
+  --text-xl--line-height: 1.75rem;
+  --text-2xl--line-height: 2rem;
+  --text-3xl--line-height: 2.25rem;
+  --text-4xl--line-height: 2.5rem;
+
+  /* Tailwind 3 drop-shadow-xl (v4 changed the value). */
+  --drop-shadow-xl: 0 20px 13px rgb(0 0 0 / 0.03), 0 8px 5px rgb(0 0 0 / 0.08);
 }
 
 @keyframes fadeInUp {
@@ -164,6 +180,25 @@ option {
 .space-y-10 > :not([hidden]) ~ :not([hidden]) {
   margin-top: 2.5rem;
   margin-bottom: 0;
+}
+/* v4 still gives the first child a bottom margin (zero specificity); v3 left it alone. */
+:where(.space-y-1, .space-y-2, .space-y-3, .space-y-4, .space-y-6, .space-y-10) > :where(:not(:last-child)) {
+  margin-bottom: 0;
+}
+
+/*
+  Tailwind 3 emitted the typography plugin as a component, before every utility. v4 sorts the
+  `.prose` rules between the margin shorthands (m-0, my-*) and the longhands (mt-*, mb-*), so
+  inside prose `m-0` and `my-*` lost to the plugin's margins. These longhand copies sort after
+  `.prose` (and before mt-* and mb-*), restoring the v3 result.
+*/
+@utility m-0 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+@utility my-* {
+  margin-top: --spacing(--value(integer));
+  margin-bottom: --spacing(--value(integer));
 }
 
 @utility bg-page {
